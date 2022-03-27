@@ -13,7 +13,7 @@
     <div class="d-flex justify-content-between">
       <h1 class="h2">Exam results</h1>
 
-      <button class="btn btn-primary px-4">
+      <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#edit-student-modal">
         <span class="me-2">Add new student</span>
         <i class="fa-solid fa-plus"></i>
       </button>
@@ -24,8 +24,8 @@
         <h2 class="h4 mb-4">Filter</h2>
         <form action="#">
           <div class="mb-3">
-            <label for="name" class="form-label">Search</label>
-            <input type="search" class="form-control" id="name" placeholder="Falonchi">
+            <label for="search" class="form-label">Search</label>
+            <input type="search" class="form-control" id="search" placeholder="Falonchi">
           </div>
           <div class="mb-3">
             <label class="form-label">Mark</label>
@@ -151,6 +151,34 @@
           </tbody>
         </table>
       </section>
+    </div>
+  </div>
+
+  <div class="modal fade" id="edit-student-modal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editStudentModalLabel">Add student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Falonchi">
+            </div>
+            <div class="mb-3">
+              <label for="lastname" class="form-label">Lastname</label>
+              <input type="text" class="form-control" id="lastname" placeholder="Pismadonchi">
+            </div>
+            <div class="mb-3">
+              <label for="mark" class="form-label">Mark</label>
+              <input type="number" class="form-control" id="mark" placeholder="150">
+            </div>
+            <button type="submit" class="btn btn-primary d-block w-100 p-2">Add student</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
