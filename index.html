@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zurumbia</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/1a052ad93a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container my-5">
+    <div class="d-flex justify-content-between">
+      <h1 class="h2">Frontend dasturlash imtihon natijalari</h1>
+
+      <button class="btn btn-primary px-4">
+        <span class="me-2">Add new student</span>
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-3">
+        <h2 class="h4 mb-4">Filter</h2>
+        <form action="#">
+          <div class="mb-3">
+            <label for="name" class="form-label">Search</label>
+            <input type="search" class="form-control" id="name" placeholder="Falonchi">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mark</label>
+            <div class="row">
+              <div class="col-6">
+                <input type="number" class="form-control" id="from" min="0" aria-label="From" placeholder="From">
+              </div>
+              <div class="col-6">
+                <input type="number" class="form-control" id="to" min="0" aria-label="To" placeholder="To">
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="sortby" class="form-label">Sort by</label>
+            <select class="form-select" id="sortby">
+              <option value="1">Name</option>
+              <option value="2">Mark: to lowest</option>
+              <option value="3">Mark: to highest</option>
+              <option value="4">Marked date</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary d-block w-100 py-2">Filter</button>
+        </form>
+      </div>
+
+      <section class="col-9">
+        <div class="d-flex justify-content-between align-items-baseline">
+          <h2 class="h4 mb-4">Students list</h2>
+          <p>Count: 4</p>
+        </div>
+        <p class="text-end">Average mark: 65%</p>
+
+        <table class="table table-striped align-middle">
+          <thead class="align-middle">
+            <tr>
+              <th class="text-center">ID</th>
+              <th>Name & Lastname</th>
+              <th>Marked date</th>
+              <th class="text-center">Mark</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Edit</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-3 text-center">100</td>
+              <td class="py-3 fw-bold">Ibrohim Alimuhammedov</td>
+              <td class="py-3">12.03.22 12:23</td>
+              <td class="py-3 text-center">98%</td>
+              <td class="py-3 text-center">
+                <p class="h5"><span class="badge rounded-pill bg-success">Pass</span></p>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-secondary">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-danger">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-3 text-center">103</td>
+              <td class="py-3 fw-bold">Usmon Hamidulloh</td>
+              <td class="py-3">12.03.22 12:23</td>
+              <td class="py-3 text-center">65%</td>
+              <td class="py-3 text-center">
+                <p class="h5"><span class="badge rounded-pill bg-success">Pass</span></p>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-secondary">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-danger">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-3 text-center">101</td>
+              <td class="py-3 fw-bold">Ziyomuhammad Ismoilov</td>
+              <td class="py-3">12.03.22 12:23</td>
+              <td class="py-3 text-center">78%</td>
+              <td class="py-3 text-center">
+                <p class="h5"><span class="badge rounded-pill bg-danger">Fail</span></p>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-secondary">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-danger">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-3 text-center">102</td>
+              <td class="py-3 fw-bold">Umar Hamidulloh</td>
+              <td class="py-3">12.03.22 12:23</td>
+              <td class="py-3 text-center">60%</td>
+              <td class="py-3 text-center">
+                <p class="h5"><span class="badge rounded-pill bg-danger">Fail</span></p>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-secondary">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+              </td>
+              <td class="py-3 text-center">
+                <button class="btn btn-outline-danger">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
