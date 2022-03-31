@@ -26,5 +26,12 @@ const students = [
     lastName: "Teshayev",
     mark: 40,
     markedDate: new Date("2021-12-05").toISOString()
+  },
+  {
+    id: 104,
+    name: "Kamronbek",
+    lastName: "Zoirov",
+    mark: 150,
+    markedDate: new Date("2022-03-29").toISOString()
   }
 ]
