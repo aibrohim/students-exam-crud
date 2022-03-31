@@ -28,20 +28,16 @@ const showDate = function(dateString) {
   return `${addZero(date.getDate())}.${addZero(date.getMonth() + 1)}.${date.getFullYear()} ${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
 }
 
-const studentsTable = document.querySelector("#students-table");
-const studentsTableBody = document.querySelector("#students-table-body");
+const renderStudent = function(student) {
+  const { id, name: stName, lastName, mark, markedDate } = student;
 
-
-for (let i = 0; i < students.length; i++) {
-  const currentStudent = students[i];
-  
   const studentRow = document.createElement("tr");
 
-  const studentId = createElement("td", "py-3 text-center", currentStudent.id)
-  const studentName = createElement("td", "py-3 fw-bold", `${currentStudent.name} ${currentStudent.lastName}`);
-  const studentMarkedDate = createElement("td", "py-3", showDate(currentStudent.markedDate));
+  const studentId = createElement("td", "py-3 text-center", id)
+  const studentName = createElement("td", "py-3 fw-bold", `${stName} ${lastName}`);
+  const studentMarkedDate = createElement("td", "py-3", showDate(markedDate));
 
-  const markPercent = Math.round(currentStudent.mark * 100 / TOTAL_MARK);
+  const markPercent = Math.round(mark * 100 / TOTAL_MARK);
   const studentMark = createElement("td", "py-3 text-center", markPercent + "%");
 
   const studentPassStatus = createElement("td", "py-3 text-center");
@@ -72,5 +68,49 @@ for (let i = 0; i < students.length; i++) {
 
   appendChildren(studentRow, [studentId, studentName, studentMarkedDate, studentMark, studentPassStatus, studentEdit, studentDel]);
 
+  return studentRow;
+}
+
+const studentsTable = document.querySelector("#students-table");
+const studentsTableBody = document.querySelector("#students-table-body");
+
+
+for (let i = 0; i < students.length; i++) {
+  const currentStudent = students[i];
+  
+  const studentRow = renderStudent(currentStudent);
+
   studentsTableBody.append(studentRow);
 }
+
+const addForm = document.querySelector("#add-form");
+const addStudentModalEl = document.querySelector("#edit-student-modal");
+const addStudentModal = new bootstrap.Modal(addStudentModalEl);
+
+addForm.addEventListener("submit", function(evt) {
+  evt.preventDefault();
+
+  const elements = evt.target.elements;
+
+  const nameValue = elements.name.value;
+  const lastNameValue = elements.lastname.value;
+  const markValue = +elements.mark.value;
+
+  if (nameValue.trim() && lastNameValue.trim() && markValue >= 0 && markValue <= TOTAL_MARK) {
+    const student = {
+      id: Math.floor(Math.random() * 1000),
+      name: nameValue,
+      lastName: lastNameValue,
+      mark: markValue,
+      markedDate: new Date().toISOString(),
+    }
+
+    students.push(student);
+
+    addForm.reset();
+    addStudentModal.hide();
+
+    const studentRow = renderStudent(student);
+    studentsTableBody.append(studentRow);
+  }
+});
