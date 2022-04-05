@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zurumbia</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="https://kit.fontawesome.com/1a052ad93a.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://kit.fontawesome.com/1a052ad93a.js" crossorigin="anonymous"></script> -->
 </head>
 <body>
   <div class="container my-5">
     <div class="d-flex justify-content-between">
       <h1 class="h2">Exam results</h1>
 
-      <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#edit-student-modal">
+      <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#add-student-modal">
         <span class="me-2">Add new student</span>
         <i class="fa-solid fa-plus"></i>
       </button>
@@ -79,11 +79,11 @@
     </div>
   </div>
 
-  <div class="modal fade" id="edit-student-modal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+  <div class="modal fade" id="add-student-modal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editStudentModalLabel">Add student</h5>
+          <h5 class="modal-title" id="addStudentModalLabel">Add student</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -101,6 +101,34 @@
               <input type="number" min="0" max="150" class="form-control" id="mark" required placeholder="150">
             </div>
             <button type="submit" class="btn btn-primary d-block w-100 p-2">Add student</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="edit-student-modal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editStudentModalLabel">Edit student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-form">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="edit-name" required placeholder="Falonchi">
+            </div>
+            <div class="mb-3">
+              <label for="lastname" class="form-label">Lastname</label>
+              <input type="text" class="form-control" id="edit-lastname" required placeholder="Pismadonchi">
+            </div>
+            <div class="mb-3">
+              <label for="mark" class="form-label">Mark</label>
+              <input type="number" min="0" max="150" class="form-control" id="edit-mark" required placeholder="150">
+            </div>
+            <button type="submit" class="btn btn-primary d-block w-100 p-2">Edit student</button>
           </form>
         </div>
       </div>
