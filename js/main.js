@@ -63,8 +63,10 @@ const renderStudent = function(student) {
   const studentDel = createElement("td", "py-3 text-center");
   const studentDelBtn = createElement("button", "btn btn-outline-danger");
   const studentDelIcon = createElement("i", "fa-solid fa-trash");
+  studentDelIcon.style.pointerEvents = "none";
   studentDelBtn.append(studentDelIcon);
   studentDel.append(studentDelBtn);
+  studentDelBtn.setAttribute("data-id", id);
 
   appendChildren(studentRow, [studentId, studentName, studentMarkedDate, studentMark, studentPassStatus, studentEdit, studentDel]);
 
@@ -74,14 +76,30 @@ const renderStudent = function(student) {
 const studentsTable = document.querySelector("#students-table");
 const studentsTableBody = document.querySelector("#students-table-body");
 
-
-for (let i = 0; i < students.length; i++) {
-  const currentStudent = students[i];
+const renderStudents = function() {
+  studentsTableBody.innerHTML = "";
   
-  const studentRow = renderStudent(currentStudent);
-
-  studentsTableBody.append(studentRow);
+  students.forEach(function(student) {
+    const studentRow = renderStudent(student);
+    studentsTableBody.append(studentRow);
+  });
 }
+
+studentsTable.addEventListener("click", function(evt) {
+  if (evt.target.matches(".btn-outline-danger")) {
+    const clickedItemId = +evt.target.dataset.id;
+
+    const clickedItemIndex = students.findIndex(function(student) {
+      return student.id === clickedItemId
+    })
+
+    students.splice(clickedItemIndex, 1);
+
+    renderStudents();
+  }
+})
+
+renderStudents();
 
 const addForm = document.querySelector("#add-form");
 const addStudentModalEl = document.querySelector("#edit-student-modal");
