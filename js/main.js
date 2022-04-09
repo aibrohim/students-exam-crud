@@ -78,13 +78,16 @@ const renderStudent = function(student) {
   return studentRow;
 }
 
-let showingStudents = students;
+let showingStudents = students.slice();
 
 const studentsTable = document.querySelector("#students-table");
 const studentsTableBody = document.querySelector("#students-table-body");
+const elCount = document.querySelector(".count");
 
 const renderStudents = function() {
   studentsTableBody.innerHTML = "";
+
+  elCount.textContent = `Count: ${showingStudents.length}`;
   
   showingStudents.forEach(function(student) {
     const studentRow = renderStudent(student);
@@ -157,8 +160,7 @@ addForm.addEventListener("submit", function(evt) {
     addForm.reset();
     addStudentModal.hide();
 
-    const studentRow = renderStudent(student);
-    studentsTableBody.append(studentRow);
+    renderStudents();
   }
 });
 
