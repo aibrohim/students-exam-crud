@@ -1,4 +1,5 @@
 const TOTAL_MARK = 150;
+const TOTAL_MARK_PERCENT = 100;
 const PASS_PERCENT = 40;
 
 const createElement = function(elName, className, textContent) {
@@ -37,7 +38,7 @@ const renderStudent = function(student) {
   const studentName = createElement("td", "py-3 fw-bold", `${stName} ${lastName}`);
   const studentMarkedDate = createElement("td", "py-3", showDate(markedDate));
 
-  const markPercent = Math.round(mark * 100 / TOTAL_MARK);
+  const markPercent = Math.round(mark * TOTAL_MARK_PERCENT / TOTAL_MARK);
   const studentMark = createElement("td", "py-3 text-center", markPercent + "%");
 
   const studentPassStatus = createElement("td", "py-3 text-center");
@@ -80,10 +81,10 @@ const renderStudent = function(student) {
 const studentsTable = document.querySelector("#students-table");
 const studentsTableBody = document.querySelector("#students-table-body");
 
-const renderStudents = function() {
+const renderStudents = function(studentsArray = students) {
   studentsTableBody.innerHTML = "";
   
-  students.forEach(function(student) {
+  studentsArray.forEach(function(student) {
     const studentRow = renderStudent(student);
     studentsTableBody.append(studentRow);
   });
@@ -189,3 +190,20 @@ editForm.addEventListener("submit", function(evt) {
     renderStudents();
   }
 });
+
+const filterForm = document.querySelector(".filter");
+
+filterForm.addEventListener("submit", function(evt) {
+  evt.preventDefault();
+
+  const elements = evt.target.elements;
+
+  const fromValue = elements.from.value;
+
+  const filtredStudents = students.filter(function(student) {
+    const studentMarkPercent = Math.round(student.mark * TOTAL_MARK_PERCENT / TOTAL_MARK)
+    return studentMarkPercent >= fromValue;
+  });
+
+  renderStudents(filtredStudents);
+})
