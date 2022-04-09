@@ -78,13 +78,15 @@ const renderStudent = function(student) {
   return studentRow;
 }
 
+let showingStudents = students;
+
 const studentsTable = document.querySelector("#students-table");
 const studentsTableBody = document.querySelector("#students-table-body");
 
-const renderStudents = function(studentsArray = students) {
+const renderStudents = function() {
   studentsTableBody.innerHTML = "";
   
-  studentsArray.forEach(function(student) {
+  showingStudents.forEach(function(student) {
     const studentRow = renderStudent(student);
     studentsTableBody.append(studentRow);
   });
@@ -106,6 +108,7 @@ studentsTable.addEventListener("click", function(evt) {
       return student.id === clickedItemId
     })
 
+    showingStudents.splice(clickedItemIndex, 1);
     students.splice(clickedItemIndex, 1);
 
     renderStudents();
@@ -149,6 +152,7 @@ addForm.addEventListener("submit", function(evt) {
     }
 
     students.push(student);
+    showingStudents.push(student);
 
     addForm.reset();
     addStudentModal.hide();
@@ -183,6 +187,7 @@ editForm.addEventListener("submit", function(evt) {
     })
 
     students.splice(editingItemIndex, 1, student);
+    showingStudents.splice(editingItemIndex, 1, student);
 
     editForm.reset();
     editStudentModal.hide();
@@ -199,11 +204,37 @@ filterForm.addEventListener("submit", function(evt) {
   const elements = evt.target.elements;
 
   const fromValue = elements.from.value;
+  const toValue = elements.to.value;
+  const searchValue = elements.search.value;
 
-  const filtredStudents = students.filter(function(student) {
-    const studentMarkPercent = Math.round(student.mark * TOTAL_MARK_PERCENT / TOTAL_MARK)
-    return studentMarkPercent >= fromValue;
-  });
+  // const filtredStudents = students
+  //   .filter(function(student) {
+  //     const studentMarkPercent = Math.round(student.mark * TOTAL_MARK_PERCENT / TOTAL_MARK)
+  //     return studentMarkPercent >= fromValue;
+  //   })
+  //   .filter(function(student) {
+  //     const studentMarkPercent = Math.round(student.mark * TOTAL_MARK_PERCENT / TOTAL_MARK)
 
-  renderStudents(filtredStudents);
+  //     return !toValue ? true : studentMarkPercent <= toValue;
+  //   })
+  //   .filter(function(student) {
+  //     const searchRegExp = new RegExp(searchValue, "gi");
+  //     const nameLastName = `${student.name} ${student.lastName}`;
+  //     // return student.name.toLowerCase().includes(searchValue.toLowerCase())
+  //     return nameLastName.match(searchRegExp) || student.lastName.match(searchRegExp);
+  //   });
+
+  showingStudents = students
+    .filter(function(student) {
+      const studentMarkPercent = Math.round(student.mark * TOTAL_MARK_PERCENT / TOTAL_MARK)
+
+      const searchRegExp = new RegExp(searchValue, "gi");
+      const nameLastName = `${student.name} ${student.lastName}`;
+
+      const toMarkCondition = !toValue ? true : studentMarkPercent <= toValue;
+
+      return studentMarkPercent >= fromValue && toMarkCondition && nameLastName.match(searchRegExp)
+    })
+
+  renderStudents();
 })
