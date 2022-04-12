@@ -170,7 +170,6 @@ editForm.addEventListener("submit", function(evt) {
 
   const editingId = +evt.target.dataset.editingId;
 
-  console.log(editingId);
   const nameValue = nameEdit.value;
   const lastNameValue = lastNameEdit.value;
   const markValue = +markEdit.value;
@@ -186,10 +185,14 @@ editForm.addEventListener("submit", function(evt) {
 
     const editingItemIndex = students.findIndex(function(student) {
       return student.id === editingId
-    })
+    });
+
+    const editingShowItemIndex = showingStudents.findIndex(function(student) {
+      return student.id === editingId
+    });
 
     students.splice(editingItemIndex, 1, student);
-    showingStudents.splice(editingItemIndex, 1, student);
+    showingStudents.splice(editingShowItemIndex, 1, student);
 
     editForm.reset();
     editStudentModal.hide();
@@ -208,6 +211,7 @@ filterForm.addEventListener("submit", function(evt) {
   const fromValue = elements.from.value;
   const toValue = elements.to.value;
   const searchValue = elements.search.value;
+  const sortValue = elements.sortby.value
 
   // const filtredStudents = students
   //   .filter(function(student) {
@@ -227,6 +231,31 @@ filterForm.addEventListener("submit", function(evt) {
   //   });
 
   showingStudents = students
+    .sort(function(a, b) {
+      switch (sortValue) {
+        case "1":
+          if (a.name > b.name) {
+            return 1
+          } else if (a.name < b.name) {
+            return -1
+          } else {
+            return 0
+          }
+        case "2":
+          return b.mark - a.mark
+        case "3":
+          return a.mark - b.mark
+        case "4":
+          return new Date(a.markedDate).getTime() - new Date(b.markedDate).getTime();
+        default:
+          break;
+      }
+      // if (sortValue === "2") {
+      //   return b.mark - a.mark;
+      // } else if (sortValue === "3") {
+      //   return a.mark - b.mark;
+      // }
+    })
     .filter(function(student) {
       const studentMarkPercent = Math.round(student.mark * TOTAL_MARK_PERCENT / TOTAL_MARK)
 
