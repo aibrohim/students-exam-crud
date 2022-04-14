@@ -156,6 +156,7 @@ addForm.addEventListener("submit", function(evt) {
     }
 
     students.push(student);
+    localStorage.setItem("students", JSON.stringify(students));
     showingStudents.push(student);
 
     addForm.reset();

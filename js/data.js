@@ -1,4 +1,4 @@
-const students = [
+const students = localStorage.getItem("students") ? JSON.parse(localStorage.getItem("students")) : [
   {
     id: 100,
     name: "Ibrohimjon",
