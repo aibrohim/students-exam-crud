@@ -29,21 +29,35 @@ const showDate = function(dateString) {
   return `${addZero(date.getDate())}.${addZero(date.getMonth() + 1)}.${date.getFullYear()} ${addZero(date.getHours())}:${addZero(date.getMinutes())}`;
 }
 
+const studentTemplate = document.querySelector("#student-template")
+
 const renderStudent = function(student) {
   const { id, name: stName, lastName, mark, markedDate } = student;
 
-  const studentRow = document.createElement("tr");
+  const studentRow = studentTemplate.content.cloneNode(true);
 
-  const studentId = createElement("td", "py-3 text-center", id)
-  const studentName = createElement("td", "py-3 fw-bold", `${stName} ${lastName}`);
-  const studentMarkedDate = createElement("td", "py-3", showDate(markedDate));
+  // const studentId = studentRow.querySelector(".student-id");
+  // studentId.textContent = id;
+
+  studentRow.querySelector(".student-id").textContent = id;
+  
+  // const studentName = studentRow.querySelector(".student-name");
+  // studentName.textContent = `${stName} ${lastName}`
+
+  studentRow.querySelector(".student-name").textContent = `${stName} ${lastName}`;
+
+  // const studentMarkedDate = studentRow.querySelector(".student-marked-date")
+  // studentMarkedDate.textContent = showDate(markedDate);
+
+  studentRow.querySelector(".student-marked-date").textContent = showDate(markedDate);
 
   const markPercent = Math.round(mark * TOTAL_MARK_PERCENT / TOTAL_MARK);
-  const studentMark = createElement("td", "py-3 text-center", markPercent + "%");
+  // const studentMark = studentRow.querySelector(".student-mark");
+  // studentMark.textContent = markPercent + "%"
+  studentRow.querySelector(".student-mark").textContent = markPercent + "%";
 
-  const studentPassStatus = createElement("td", "py-3 text-center");
-  const studentPassParagraph = createElement("p", "h5");
-  const studentPassBadge = createElement("span", "badge rounded-pill")
+
+  const studentPassBadge = studentRow.querySelector(".student-pass-status");
 
   if (markPercent >= PASS_PERCENT) {
     studentPassBadge.textContent = "Pass";
@@ -52,28 +66,12 @@ const renderStudent = function(student) {
     studentPassBadge.textContent = "Fail";
     studentPassBadge.classList.add("bg-danger");
   }
-  studentPassParagraph.append(studentPassBadge);
-  studentPassStatus.append(studentPassParagraph);
 
-  const studentEdit = createElement("td", "py-3 text-center");
-  const studentEditBtn = createElement("button", "btn btn-outline-secondary");
-  const studentEditIcon = createElement("i", "fa-solid fa-pen");
-  studentEditIcon.style.pointerEvents = "none";
-  studentEditBtn.setAttribute("data-bs-toggle", "modal");
-  studentEditBtn.setAttribute("data-bs-target", "#edit-student-modal");
+  const studentEditBtn = studentRow.querySelector(".student-edit")
   studentEditBtn.setAttribute("data-id", id);
-  studentEditBtn.append(studentEditIcon);
-  studentEdit.append(studentEditBtn);
 
-  const studentDel = createElement("td", "py-3 text-center");
-  const studentDelBtn = createElement("button", "btn btn-outline-danger");
-  const studentDelIcon = createElement("i", "fa-solid fa-trash");
-  studentDelIcon.style.pointerEvents = "none";
-  studentDelBtn.append(studentDelIcon);
-  studentDel.append(studentDelBtn);
-  studentDelBtn.setAttribute("data-id", id);
-
-  appendChildren(studentRow, [studentId, studentName, studentMarkedDate, studentMark, studentPassStatus, studentEdit, studentDel]);
+  const studentDeleteBtn = studentRow.querySelector(".student-delete")
+  studentDeleteBtn.setAttribute("data-id", id);
 
   return studentRow;
 }
@@ -81,7 +79,7 @@ const renderStudent = function(student) {
 let showingStudents = students.slice();
 
 const studentsTable = document.querySelector("#students-table");
-const studentsTableBody = document.querySelector("#students-table-body");
+const studentsTableBody = studentsTable.querySelector("#students-table-body");
 const elCount = document.querySelector(".count");
 
 const renderStudents = function() {
@@ -89,10 +87,13 @@ const renderStudents = function() {
 
   elCount.textContent = `Count: ${showingStudents.length}`;
   
+  const studentsFragment = document.createDocumentFragment();
   showingStudents.forEach(function(student) {
     const studentRow = renderStudent(student);
-    studentsTableBody.append(studentRow);
+    studentsFragment.append(studentRow);
   });
+
+  studentsTableBody.append(studentsFragment)
 }
 
 const nameEdit = document.querySelector("#edit-name");

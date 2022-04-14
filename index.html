@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zurumbia</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <!-- <script src="https://kit.fontawesome.com/1a052ad93a.js" crossorigin="anonymous"></script> -->
+  <script src="https://kit.fontawesome.com/1a052ad93a.js" crossorigin="anonymous"></script> 
 </head>
+
 <body>
   <div class="container my-5">
     <div class="d-flex justify-content-between">
@@ -72,14 +74,15 @@
             </tr>
           </thead>
           <tbody id="students-table-body">
-            
+
           </tbody>
         </table>
       </section>
     </div>
   </div>
 
-  <div class="modal fade" id="add-student-modal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+  <div class="modal fade" id="add-student-modal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -106,8 +109,9 @@
       </div>
     </div>
   </div>
-  
-  <div class="modal fade" id="edit-student-modal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+
+  <div class="modal fade" id="edit-student-modal" tabindex="-1" aria-labelledby="editStudentModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -135,9 +139,36 @@
     </div>
   </div>
 
+  <!--  -->
+  <template id="student-template">
+    <tr>
+      <td class="py-3 text-center student-id"></td>
+      <td class="py-3 fw-bold student-name"></td>
+      <td class="py-3 student-marked-date"></td>
+      <td class="py-3 text-center student-mark"></td>
+      <td class="py-3 text-center">
+        <p class="h5">
+          <span class="badge rounded-pill student-pass-status"></span>
+        </p>
+      </td>
+      <td class="py-3 text-center">
+        <button class="btn btn-outline-secondary student-edit" data-bs-toggle="modal" data-bs-target="#edit-student-modal"
+          data-id="">
+          <i class="fa-solid fa-pen" style="pointer-events: none;"></i>
+        </button>
+      </td>
+      <td class="py-3 text-center">
+        <button class="btn btn-outline-danger student-delete" data-id="">
+          <i class="fa-solid fa-trash" style="pointer-events: none;"></i>
+        </button>
+      </td>
+    </tr>
+  </template>
+
   <script src="js/bootstrap.bundle.min.js"></script>
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
